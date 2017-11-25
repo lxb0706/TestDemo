@@ -49,7 +49,11 @@
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        
+        make.leading.equalTo(self.view.mas_safeAreaLayoutGuideLeft);
+        make.trailing.equalTo(self.view.mas_safeAreaLayoutGuideRight);
+        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom);
     }];
 }
 
