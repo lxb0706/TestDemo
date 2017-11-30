@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <Masonry/Masonry.h>
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -19,13 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    
-    [self.view addSubview:tableView];
-    
+    [self setupView];
 }
 
 #pragma mark - UITableView Delegate
@@ -51,4 +46,24 @@
     return cell;
 }
 
+#pragma mark - private methods
+- (void)setupView {
+    
+    [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+}
+
+#pragma mark - setter & getter
+- (UITableView *)tableView {
+    
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = [UIView new];
+    }
+    return _tableView;
+}
 @end
